@@ -54,3 +54,7 @@ void chooseBus(MARSHRUT *a, int r);
 void CreatName(char *a);
 void generateAbonDates(dates *date);
 void generatePhone(number *phone);
+void Birthday(NOTE1 *a, int r);
+void abonTenYears(ABON *a, int r);
+void NegativeBallance(ABON *a, int r);
+void ChooseAbon(ABON*a, int r);

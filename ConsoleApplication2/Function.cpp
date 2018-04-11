@@ -39,7 +39,8 @@ void sortTovar(Tovar* a, int r)
 
 			}
 		}
-		printf("# %d \t %s \t %d.%d.%d\t %d \t %d\n", i + 1, (a + i)->name, (a + i)->date->day, (a + i)->date->month, (a + i)->date->year, (a + i)->qnt, (a + i)->price);
+		printf("# %d \t %s \t %d.%d.%d\t %d \t %d\n", i + 1, (a + i)->name, (a + i)->date->day,
+			(a + i)->date->month, (a + i)->date->year, (a + i)->qnt, (a + i)->price);
 	}
 }
 
@@ -49,14 +50,15 @@ void chooseTovar(Tovar *a, int r)
 	{
 		if (((a + i)->date->year <= 2017) && ((a + i)->date->month < 6))
 		{
-			printf("# %d \t %s \t %d.%d.%d\t %d \t %d\n", i + 1, (a + i)->name, (a + i)->date->day, (a + i)->date->month, (a + i)->date->year, (a + i)->qnt, (a + i)->price);
+			printf("# %d \t %s \t %d.%d.%d\t %d \t %d\n", i + 1, (a + i)->name, (a + i)->date->day, 
+				(a + i)->date->month, (a + i)->date->year, (a + i)->qnt, (a + i)->price);
 		}
 	}
 }
 
 void generateStart(char *name)
 {
-	strcpy(name, "Start #");
+	strcpy(name, "Start#");
 	int a = 1 + rand() % 30;
 	char t[3];
 	itoa(a, t, 10);
@@ -65,7 +67,7 @@ void generateStart(char *name)
 }
 void generateEnd(char *name)
 {
-	strcpy(name, "End #");
+	strcpy(name, "End#");
 	int a = 1 + rand() % 30;
 	char t[3];
 	itoa(a, t, 10);
@@ -84,7 +86,8 @@ void maxLength(MARSHRUT *a, int r)
 			ind = i;
 		}
 	}
-	printf("Маршрут с с максимальной длиной: # %d\t%s\t%s\t%d\n", a[ind].num, a[ind].startName, a[ind].endName, a[ind].length);
+	printf("Маршрут с с максимальной длиной: # %d\t%s\t%s\t%d\n", a[ind].num, a[ind].startName, 
+		a[ind].endName, a[ind].length);
 }
 
 void SortBus(MARSHRUT *a, int r)
@@ -99,11 +102,9 @@ void SortBus(MARSHRUT *a, int r)
 				temp = a[j - 1];
 				a[j - 1] = a[j];
 				a[j] = temp;
-
 			}
 		}
 		printf("# %d\t%s\t%s\t%d\n", (a + i)->num, (a + i)->startName, (a + i)->endName, (a + i)->length);
-
 	}
 }
 
@@ -112,14 +113,16 @@ void chooseBus(MARSHRUT *a, int r)
 	char name[15];
 	int i;
 	printf("Введите название пункта: ");
-	fgets(name, 10, stdin);
+	scanf("%s", &name);
+	/*fgets(name, 10, stdin);*/
 	/*cin.get();*/
-	for (i=0;i<r;i++)
+	for (i = 0; i < r; i++)
 	{
 		/* НЕ ПОНИМАЮ ПОЧЕМУ УСЛОВИЕ НЕ ОТРАБАТЫВАЕТ(((*/
-		if ((a[i].endName == name) || (a [i].startName == name))
+		if ((a[i].endName == name) || (a[i].startName == name))
 		{
-			printf("маршруты, которые начинаются или заканчиваются в пункте %s:\n # %d\t%s\t%s\t%d\n", name, (a + i)->num, (a + i)->startName, (a + i)->endName, (a + i)->length);
+			printf("маршруты, которые начинаются или заканчиваются в пункте %s:\n # %d\t%s\t%s\t%d\n",
+				name, (a + i)->num, (a + i)->startName, (a + i)->endName, (a + i)->length);
 		}
 	}
 }
@@ -129,10 +132,10 @@ void CreatName(char *a)
 	char lName[10][9] = { "Иванов", "Петров","Сидоров","Абрамов ","Бирюков ","Воронов ","Громов ","Дроздов ","Ершов ","Игнатов " };
 	char name[10][5] = { "В.В.","C.K.","M.К.","C.П.","A.M.","O.P.","K.И.","В.Ф.","Т.Л.","A.C." };
 
-	int rnd =1+ rand() % 9;
+	int rnd = 1 + rand() % 9;
 	strcat(a, lName[rnd]);
 	strcat(a, " ");
-	rnd = 1+rand() % 9;
+	rnd = 1 + rand() % 9;
 	strcat(a, name[rnd]);
 }
 
@@ -145,9 +148,75 @@ void generateAbonDates(dates *date)
 
 void generatePhone(number *phone)
 {
-
 	phone->n1 = 10 + rand() % 89;
 	phone->n2 = 10 + rand() % 89;
 	phone->n3 = 10 + rand() % 89;
+}
+
+void Birthday(NOTE1 *a, int r)
+{
+	int b;
+	printf("введите номер месяца: ");
+	scanf("%d", &b);
 	
+	for (int i = 0; i < r; i++)
+	{
+		if ((a[i].age->month) == b)
+		{
+			printf("%s\t%2d-%2d-%2d\t%2d.%2d.%4d\n",(a+ i)->name,
+				(a + i)->phone->n1, (a + i)->phone->n2, (a + i)->phone->n3,
+				(a + i)->age->day, (a+ i)->age->month, (a+ i)->age->year);
+		}
+	}
+}
+
+//добавить 20 гр. на счета абонентов, которых подключили более 10 лет назад;
+void abonTenYears(ABON *a, int r)
+{
+	for (int i = 0; i < r; i++)
+	{
+		if (((a + i)->dateAbon->year) < 2008)
+		{
+			(a + i)->sumAbon = (a + i)->sumAbon + 20;
+			printf("%s\t%2d-%2d-%2d\t%2d.%2d.%4d\t%d\t%d\n", (a + i)->name,
+				(a + i)->phone->n1, (a + i)->phone->n2, (a + i)->phone->n3,
+				(a + i)->dateAbon->day, (a + i)->dateAbon->month, (a + i)->dateAbon->year,
+				(a + i)->bill, (a + i)->sumAbon);
+		}
+	}
+}
+
+//вывода сведений об абонентах, у которых сумма на счету отрицательная после вычета начислений
+void NegativeBallance(ABON *a, int r)
+{
+	for (int i = 0; i < r; i++)
+	{
+		(a + i)->sumAbon = (a + i)->sumAbon - (a + i)->bill;
+		if ((a + i)->sumAbon < 0)
+		{
+			printf("%s\t%2d-%2d-%2d\t%2d.%2d.%4d\t%d\t%d\n", (a + i)->name,
+				(a + i)->phone->n1, (a + i)->phone->n2, (a + i)->phone->n3,
+				(a + i)->dateAbon->day, (a + i)->dateAbon->month, (a + i)->dateAbon->year,
+				(a + i)->bill, (a + i)->sumAbon);
+		}
+	}
+}
+//вывода сведений об абоненте, номер телефона которого вводится с клавиатуры
+void ChooseAbon(ABON*a, int r)
+{
+	number *k;
+	printf("введите номер телефона:");
+	scanf("%d", &(k->n1));
+	scanf("%d", &(k->n2));
+	scanf("%d", &(k->n3));
+	for (int i = 0; i < r; i++)
+	{
+		if (((a + i)->phone->n1 == k->n1) && ((a + i)->phone->n2 == k->n2) && ((a + i)->phone->n3 == k->n3))
+		{
+			printf("%s\t%2d-%2d-%2d\t%2d.%2d.%4d\t%d\t%d\n", (a + i)->name,
+				(a + i)->phone->n1, (a + i)->phone->n2, (a + i)->phone->n3,
+				(a + i)->dateAbon->day, (a + i)->dateAbon->month, (a + i)->dateAbon->year,
+				(a + i)->bill, (a + i)->sumAbon);
+		}
+	}
 }
