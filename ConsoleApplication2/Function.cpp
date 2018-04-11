@@ -4,7 +4,9 @@
 #include <stdint.h>
 #include <string.h>
 #include<stdlib.h>
+#include<iostream>
 #include "Header.h"
+using namespace std;
 
 void generateDate(dates *t)
 {
@@ -108,11 +110,14 @@ void SortBus(MARSHRUT *a, int r)
 void chooseBus(MARSHRUT *a, int r)
 {
 	char name[15];
+	int i;
 	printf("Введите название пункта: ");
-	scanf("%s", &name);
-	for (int i = 0; i < r; i++)
+	fgets(name, 10, stdin);
+	/*cin.get();*/
+	for (i=0;i<r;i++)
 	{
-		if (((a + i)->endName == name || ((a + i)->startName == name)))
+		/* НЕ ПОНИМАЮ ПОЧЕМУ УСЛОВИЕ НЕ ОТРАБАТЫВАЕТ(((*/
+		if ((a[i].endName == name) || (a [i].startName == name))
 		{
 			printf("маршруты, которые начинаются или заканчиваются в пункте %s:\n # %d\t%s\t%s\t%d\n", name, (a + i)->num, (a + i)->startName, (a + i)->endName, (a + i)->length);
 		}
@@ -121,13 +126,13 @@ void chooseBus(MARSHRUT *a, int r)
 
 void CreatName(char *a)
 {
-	char lName[10][30] = { "Иванов", "Петров","Сидоров","Абрамов ","Бирюков ","Воронов ","Громов ","Дроздов ","Ершов ","Игнатов " };
+	char lName[10][9] = { "Иванов", "Петров","Сидоров","Абрамов ","Бирюков ","Воронов ","Громов ","Дроздов ","Ершов ","Игнатов " };
 	char name[10][5] = { "В.В.","C.K.","M.К.","C.П.","A.M.","O.P.","K.И.","В.Ф.","Т.Л.","A.C." };
 
-	int rnd = rand() % 9;
+	int rnd =1+ rand() % 9;
 	strcat(a, lName[rnd]);
 	strcat(a, " ");
-	rnd = rand() % 9;
+	rnd = 1+rand() % 9;
 	strcat(a, name[rnd]);
 }
 
@@ -138,12 +143,11 @@ void generateAbonDates(dates *date)
 	date->year = 1995 + rand() % 23;
 }
 
-//void generatePhone(char *phone)
-//{
-//char n, n1, n2;
-//	n = 10 + rand() % 89;
-//	n1 = 10 + rand() % 89;
-//	n2 = 10 + rand() % 89;
-//	strcat(phone,n);
-//	strcat(phone, "-");
-//}
+void generatePhone(number *phone)
+{
+
+	phone->n1 = 10 + rand() % 89;
+	phone->n2 = 10 + rand() % 89;
+	phone->n3 = 10 + rand() % 89;
+	
+}

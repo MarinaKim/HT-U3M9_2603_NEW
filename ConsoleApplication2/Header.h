@@ -3,12 +3,17 @@ struct dates {
 	int day;
 	int month;
 };
-
+struct number
+{
+	int n1;
+	int n2;
+	int n3;
+};
 struct NOTE1
 {
 	char *name;
-	char *phone;
-	date *age;
+	number *phone;
+	dates *age;
 };
 
 struct Tovar
@@ -27,11 +32,12 @@ struct MARSHRUT
 	int length;
 };
 
+
 struct ABON
 {
 	char *name;
-	char *phone;
-	char *dateAbon;
+	number *phone;
+	dates *dateAbon;
 	int bill;
 	int sumAbon;
 };
@@ -45,3 +51,6 @@ void generateEnd(char *name);
 void maxLength(MARSHRUT*a, int r);
 void SortBus(MARSHRUT *a, int r);
 void chooseBus(MARSHRUT *a, int r);
+void CreatName(char *a);
+void generateAbonDates(dates *date);
+void generatePhone(number *phone);
